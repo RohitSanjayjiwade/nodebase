@@ -1,10 +1,10 @@
 import { RegisterForm } from "@/feutures/auth/components/register-form";
 import { requireUnauth } from "@/lib/auth-utils";
 
-const Signup = async()=>{
+const Signup = async () => {
     await requireUnauth();
 
-    return(
+    return (
         <RegisterForm />
     )
 }
