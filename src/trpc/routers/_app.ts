@@ -1,30 +1,8 @@
-import { TRPCError } from "@trpc/server";
-import { inngest } from "@/inngest/client";
-import { prisma } from "@/lib/db";
-import { baseProcedure, createTRPCRouter, premiumProcedure, protectedProcedure } from "../init";
+import { createTRPCRouter } from "../init";
+import { workflowsRouter } from "@/feutures/workflows/server/routers";
 
 export const appRouter = createTRPCRouter({
-  testAi: premiumProcedure.mutation(async () => {
-    await inngest.send({
-      name: "execute/ai",
-    });
-
-    return { success: true, message: "Job in Queue" };
-  }),
-  getWorkflows: protectedProcedure.query(({ ctx }) => {
-    return prisma.workflow.findMany();
-  }),
-
-  createWorkflow: protectedProcedure.mutation(async () => {
-    await inngest.send({
-      name: "app/task.created",
-      data: {
-        id: 102,
-      },
-    });
-
-    return { success: true, message: "Job in Queue" };
-  }),
+  workflows: workflowsRouter,
 });
 
 // export type definition of API
