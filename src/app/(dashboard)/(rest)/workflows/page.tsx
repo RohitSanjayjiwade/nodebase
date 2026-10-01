@@ -1,4 +1,4 @@
-import { WorkflowsContainer, WorkflowsList } from "@/feutures/workflows/components/workflows";
+import { WorkflowsContainer, WorkflowsError, WorkflowsList, WorkflowsLoading } from "@/feutures/workflows/components/workflows";
 import { workflowsParamsLoader } from "@/feutures/workflows/server/params-loader";
 import { prefetchWorkflows } from "@/feutures/workflows/server/prefetch";
 import { requireAuth } from "@/lib/auth-utils";
@@ -22,8 +22,8 @@ const Page = async ({searchParams}: Props) => {
     return (
         <WorkflowsContainer>
             <HydrateClient>
-                <ErrorBoundary fallback={<div>Error!</div>}>
-                    <Suspense fallback={<p>Loading...</p>}>
+                <ErrorBoundary fallback={<WorkflowsError />}>
+                    <Suspense fallback={<WorkflowsLoading />}>
                         <WorkflowsList />
                     </Suspense>
                 </ErrorBoundary>
